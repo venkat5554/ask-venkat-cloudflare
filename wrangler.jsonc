@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ask-venkat",
+  "main": "src/entry.py",
+  "compatibility_date": "2026-09-02",
+  "compatibility_flags": [
+    "python_workers"
+  ],
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+
+  "ai": {
+    "binding": "AI"
+  },
+
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "ask-venkat-knowledge"
+    }
+  ],
+
+  "observability": {
+    "enabled": true
+  }
+}
