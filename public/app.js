@@ -4,11 +4,8 @@ const chatForm =
 const messageInput =
   document.getElementById("messageInput");
 
-const messages =
-  document.getElementById("messages");
-
-const welcome =
-  document.getElementById("welcome");
+const chat =
+  document.getElementById("chat");
 
 const sendBtn =
   document.getElementById("sendBtn");
@@ -16,11 +13,26 @@ const sendBtn =
 const newChatBtn =
   document.getElementById("newChatBtn");
 
+const suggestionButtons =
+  document.querySelectorAll(
+    ".suggestion-btn"
+  );
+
+const menuToggle =
+  document.getElementById("menuToggle");
+
+const navLinks =
+  document.getElementById("navLinks");
+
 
 let conversationHistory = [];
 
 let isSending = false;
 
+
+/* ==========================================
+   TEXTAREA AUTO RESIZE
+=========================================== */
 
 function resizeTextarea() {
 
@@ -30,72 +42,111 @@ function resizeTextarea() {
   messageInput.style.height =
     `${Math.min(
       messageInput.scrollHeight,
-      180
+      170
     )}px`;
 }
 
 
-function scrollToBottom() {
+/* ==========================================
+   SCROLL TO LATEST MESSAGE
+=========================================== */
 
-  window.scrollTo({
-    top:
-      document.body.scrollHeight,
+function scrollToMessage(
+  element
+) {
 
-    behavior:
-      "smooth",
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "nearest",
   });
 }
 
 
+/* ==========================================
+   CREATE MESSAGE
+=========================================== */
+
 function addMessage(
   role,
-  text,
+  text
 ) {
-
-  welcome.classList.add(
-    "hidden"
-  );
-
 
   const row =
     document.createElement(
       "div"
     );
 
+
   row.className =
-    `message ${role}`;
+    role === "assistant"
+      ? "message assistant-message"
+      : "message user-message";
 
 
-  const bubble =
+  const label =
     document.createElement(
       "div"
     );
 
-  bubble.className =
-    "bubble";
+  label.className =
+    "message-label";
 
-  bubble.textContent =
+  label.textContent =
+    role === "assistant"
+      ? "Venkat AI"
+      : "You";
+
+
+  const content =
+    document.createElement(
+      "div"
+    );
+
+  content.className =
+    "message-content";
+
+
+  const paragraph =
+    document.createElement(
+      "p"
+    );
+
+  paragraph.textContent =
     text;
 
 
-  row.appendChild(
-    bubble
+  content.appendChild(
+    paragraph
   );
 
-  messages.appendChild(
+  row.appendChild(
+    label
+  );
+
+  row.appendChild(
+    content
+  );
+
+  chat.appendChild(
     row
   );
 
 
-  scrollToBottom();
+  scrollToMessage(
+    row
+  );
 
 
   return row;
 }
 
 
+/* ==========================================
+   SENDING STATE
+=========================================== */
+
 function setSending(
-  value,
+  value
 ) {
 
   isSending =
@@ -106,11 +157,31 @@ function setSending(
 
   messageInput.disabled =
     value;
+
+
+  if (value) {
+
+    sendBtn.setAttribute(
+      "aria-busy",
+      "true"
+    );
+
+  } else {
+
+    sendBtn.removeAttribute(
+      "aria-busy"
+    );
+
+  }
 }
 
 
+/* ==========================================
+   SEND MESSAGE
+=========================================== */
+
 async function sendMessage(
-  rawMessage,
+  rawMessage
 ) {
 
   const message =
@@ -118,8 +189,7 @@ async function sendMessage(
 
 
   if (
-    !message
-    ||
+    !message ||
     isSending
   ) {
     return;
@@ -132,9 +202,11 @@ async function sendMessage(
     );
 
 
+  /* Add user message */
+
   addMessage(
     "user",
-    message,
+    message
   );
 
 
@@ -144,13 +216,20 @@ async function sendMessage(
   });
 
 
+  /* Clear input */
+
   messageInput.value =
     "";
 
   resizeTextarea();
 
+
+  /* Lock composer */
+
   setSending(true);
 
+
+  /* Thinking state */
 
   const thinkingRow =
     addMessage(
@@ -198,14 +277,15 @@ async function sendMessage(
     }
 
 
+    /* Remove thinking */
+
     thinkingRow.remove();
 
 
     if (!response.ok) {
 
       throw new Error(
-        data.detail
-        ||
+        data.detail ||
         "Request failed."
       );
 
@@ -213,14 +293,15 @@ async function sendMessage(
 
 
     const answer =
-      data.answer
-      ||
+      data.answer ||
       "I couldn't generate an answer.";
 
 
+    /* Add AI response */
+
     addMessage(
       "assistant",
-      answer,
+      answer
     );
 
 
@@ -230,10 +311,13 @@ async function sendMessage(
     });
 
 
+    /* Limit local history */
+
     conversationHistory =
       conversationHistory.slice(
         -12
       );
+
 
   } catch (error) {
 
@@ -242,13 +326,15 @@ async function sendMessage(
 
     addMessage(
       "assistant",
-      "I hit a temporary problem while answering. Please try again.",
+      "I hit a temporary problem while answering. Please try again."
     );
 
 
     console.error(
+      "Chat request failed:",
       error
     );
+
 
   } finally {
 
@@ -260,9 +346,12 @@ async function sendMessage(
 }
 
 
+/* ==========================================
+   FORM SUBMIT
+=========================================== */
+
 chatForm.addEventListener(
   "submit",
-
   (event) => {
 
     event.preventDefault();
@@ -275,21 +364,27 @@ chatForm.addEventListener(
 );
 
 
+/* ==========================================
+   TEXTAREA INPUT
+=========================================== */
+
 messageInput.addEventListener(
   "input",
-
   resizeTextarea
 );
 
 
+/* ==========================================
+   ENTER TO SEND
+   SHIFT + ENTER = NEW LINE
+=========================================== */
+
 messageInput.addEventListener(
   "keydown",
-
   (event) => {
 
     if (
-      event.key === "Enter"
-      &&
+      event.key === "Enter" &&
       !event.shiftKey
     ) {
 
@@ -303,56 +398,245 @@ messageInput.addEventListener(
 );
 
 
-newChatBtn.addEventListener(
-  "click",
+/* ==========================================
+   SUGGESTED QUESTIONS
+=========================================== */
 
-  () => {
+suggestionButtons.forEach(
+  (button) => {
 
-    conversationHistory = [];
+    button.addEventListener(
+      "click",
+      () => {
 
-    messages.innerHTML = "";
+        const question =
+          button.dataset.question ||
+          button.textContent.trim();
 
-    welcome.classList.remove(
-      "hidden"
+
+        /*
+         Put the suggested question
+         into the composer instead of
+         immediately sending it.
+
+         This gives the visitor a chance
+         to edit the question.
+        */
+
+        messageInput.value =
+          question;
+
+        resizeTextarea();
+
+        messageInput.focus();
+
+      }
     );
-
-    messageInput.value = "";
-
-    resizeTextarea();
-
-    messageInput.focus();
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
 
   }
 );
 
 
-document
-  .querySelectorAll(
-    ".suggestion"
-  )
-  .forEach(
-    (button) => {
+/* ==========================================
+   NEW CHAT
+=========================================== */
 
-      button.addEventListener(
-        "click",
+newChatBtn.addEventListener(
+  "click",
+  () => {
 
-        () => {
+    conversationHistory =
+      [];
 
-          sendMessage(
-            button.textContent
-          );
 
-        }
-      );
+    chat.innerHTML = `
+      <div class="message assistant-message">
+
+        <div class="message-label">
+          Venkat AI
+        </div>
+
+        <div class="message-content">
+
+          <p>
+            Hi. I can answer questions about Venkat’s
+            professional experience, skills, education,
+            technologies, and work.
+          </p>
+
+          <p>
+            Ask a question above or choose one of the suggestions.
+          </p>
+
+        </div>
+
+      </div>
+    `;
+
+
+    messageInput.value =
+      "";
+
+    resizeTextarea();
+
+    messageInput.focus();
+
+
+    document
+      .querySelector(
+        ".ask-section"
+      )
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+  }
+);
+
+
+/* ==========================================
+   MOBILE NAVIGATION
+=========================================== */
+
+function openMenu() {
+
+  if (
+    !menuToggle ||
+    !navLinks
+  ) {
+    return;
+  }
+
+
+  navLinks.classList.add(
+    "open"
+  );
+
+  menuToggle.classList.add(
+    "active"
+  );
+
+  menuToggle.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+  document.body.classList.add(
+    "menu-open"
+  );
+}
+
+
+function closeMenu() {
+
+  if (
+    !menuToggle ||
+    !navLinks
+  ) {
+    return;
+  }
+
+
+  navLinks.classList.remove(
+    "open"
+  );
+
+  menuToggle.classList.remove(
+    "active"
+  );
+
+  menuToggle.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+}
+
+
+function toggleMenu() {
+
+  if (
+    navLinks?.classList.contains(
+      "open"
+    )
+  ) {
+
+    closeMenu();
+
+  } else {
+
+    openMenu();
+
+  }
+}
+
+
+if (
+  menuToggle &&
+  navLinks
+) {
+
+  menuToggle.addEventListener(
+    "click",
+    toggleMenu
+  );
+
+
+  navLinks
+    .querySelectorAll("a")
+    .forEach(
+      (link) => {
+
+        link.addEventListener(
+          "click",
+          closeMenu
+        );
+
+      }
+    );
+
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeMenu();
+
+      }
 
     }
   );
 
+
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (
+        window.innerWidth > 700
+      ) {
+
+        closeMenu();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   INITIAL STATE
+=========================================== */
 
 resizeTextarea();
 

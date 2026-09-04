@@ -18,134 +18,339 @@
 
   <link
     rel="stylesheet"
-    href="/styles.css"
+    href="styles.css"
   >
 </head>
 
+
 <body>
 
-  <div class="app-shell">
+  <!-- ==========================================
+       NAVIGATION
+  =========================================== -->
 
-    <header class="topbar">
+  <nav class="site-nav">
 
-      <div class="brand">
+    <div class="container nav-inner">
 
-        <div class="avatar">
-          V
-        </div>
+      <a
+        href="/index.html"
+        class="logo"
+        aria-label="Venkat home"
+      >
+        Venkat
+      </a>
 
-        <div>
-          <h1>Ask Venkat</h1>
-          <p>AI portfolio assistant</p>
-        </div>
+
+      <div
+        class="nav-links"
+        id="navLinks"
+      >
+
+        <a href="/index.html">
+          About
+        </a>
+
+        <a href="/experience.html">
+          Experience
+        </a>
+
+        <a href="/projects.html">
+          Projects
+        </a>
+
+        <a href="/contact.html">
+          Contact
+        </a>
+
+        <a
+          href="/app/"
+          class="active"
+          aria-current="page"
+        >
+          Ask AI
+        </a>
 
       </div>
 
+
       <button
-        id="newChatBtn"
-        class="secondary"
+        class="menu-toggle"
+        id="menuToggle"
         type="button"
+        aria-label="Open navigation menu"
+        aria-controls="navLinks"
+        aria-expanded="false"
       >
-        New chat
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
 
-    </header>
+    </div>
+
+  </nav>
 
 
-    <main class="chat-layout">
+  <!-- ==========================================
+       MAIN
+  =========================================== -->
 
-      <section
-        id="welcome"
-        class="welcome"
-      >
+  <main>
 
-        <div class="welcome-mark">
-          V
+
+    <!-- ==========================================
+         HERO
+    =========================================== -->
+
+    <section class="container ai-hero">
+
+      <div class="eyebrow">
+        AI Assistant
+      </div>
+
+      <h1>
+        Curious about my work?
+        <span>Just ask.</span>
+      </h1>
+
+      <p class="ai-hero-description">
+        Ask me about my experience, projects, skills,
+        or the technologies I’ve worked with.
+      </p>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         PRIMARY CHAT AREA
+    =========================================== -->
+
+    <section class="container ask-section">
+
+      <div class="ask-heading">
+
+        <div class="section-label">
+          Ask me
         </div>
-
-        <h2>
-		  Want to know more about me or my work?
-		  Let’s chat — just ask.
-
-        </h2>
 
         <p>
-          Ask about my experience, skills,
-          education, data engineering,
-          analytics, AI, or previous roles.
+          What would you like to know?
         </p>
 
+      </div>
 
-        <div class="suggestions">
-
-          <button class="suggestion">
-            Tell me about your data engineering experience.
-          </button>
-
-          <button class="suggestion">
-            What did you do at Amazon?
-          </button>
-
-          <button class="suggestion">
-            What are your strongest technical skills?
-          </button>
-
-          <button class="suggestion">
-            Why would you be a good fit for a data role?
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <section
-        id="messages"
-        class="messages"
-        aria-live="polite"
-      ></section>
-
-    </main>
-
-
-    <footer class="composer-wrap">
 
       <form
         id="chatForm"
-        class="composer"
+        class="primary-composer"
       >
+
+        <label
+          for="messageInput"
+          class="sr-only"
+        >
+          Ask Venkat a question
+        </label>
+
 
         <textarea
           id="messageInput"
-          rows="1"
+          rows="2"
           maxlength="4000"
-          placeholder="Ask Venkat about his professional profile..."
+          placeholder="Ask me about my experience, skills, projects..."
+          autocomplete="off"
         ></textarea>
 
 
         <button
           id="sendBtn"
-          class="send"
+          class="chat-send"
           type="submit"
+          aria-label="Send question"
         >
-          ↑
+          <span>
+            Ask
+          </span>
+
+          <span aria-hidden="true">
+            →
+          </span>
         </button>
 
       </form>
 
 
-      <p class="disclaimer">
-        Ask Venkat is an AI representation of
-        Venkat’s professional profile.
+      <p class="ask-hint">
+        Try asking about a company, project, technology, or role.
       </p>
 
-    </footer>
+    </section>
 
-  </div>
 
+
+    <!-- ==========================================
+         SUGGESTED QUESTIONS
+    =========================================== -->
+
+    <section class="container">
+
+      <div class="ai-intro">
+
+        <div class="section-label">
+          Not sure what to ask?
+        </div>
+
+
+        <div class="suggested-questions">
+
+          <button
+            type="button"
+            class="suggestion-btn"
+            data-question="What did you work on at ZEISS?"
+          >
+            What did you work on at ZEISS?
+          </button>
+
+
+          <button
+            type="button"
+            class="suggestion-btn"
+            data-question="Tell me about your data engineering experience."
+          >
+            Tell me about your data engineering experience.
+          </button>
+
+
+          <button
+            type="button"
+            class="suggestion-btn"
+            data-question="What technologies do you work with?"
+          >
+            What technologies do you work with?
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         CONVERSATION
+    =========================================== -->
+
+    <section class="container chat-shell">
+
+      <div class="chat-header">
+
+        <div>
+
+          <div class="section-label">
+            Conversation
+          </div>
+
+          <p class="chat-status">
+            Portfolio knowledge assistant
+          </p>
+
+        </div>
+
+
+        <button
+          id="newChatBtn"
+          class="new-chat-btn"
+          type="button"
+        >
+          New chat
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+        </button>
+
+      </div>
+
+
+
+      <div
+        class="chat"
+        id="chat"
+        aria-live="polite"
+      >
+
+        <div class="message assistant-message">
+
+          <div class="message-label">
+            Venkat AI
+          </div>
+
+
+          <div class="message-content">
+
+            <p>
+              Hi. I can answer questions about Venkat’s
+              professional experience, skills, education,
+              technologies, and work.
+            </p>
+
+            <p>
+              Ask a question above or choose one of the suggestions.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- ==========================================
+       FOOTER
+  =========================================== -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div>
+        Data · Operations · Technology
+      </div>
+
+
+      <div class="footer-status">
+
+        <span
+          class="status-dot"
+          aria-hidden="true"
+        ></span>
+
+        AI portfolio assistant
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- ==========================================
+       JAVASCRIPT
+  =========================================== -->
 
   <script src="/app.js"></script>
 
 </body>
 
 </html>
+
