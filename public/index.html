@@ -18,10 +18,9 @@
 
   <link
     rel="stylesheet"
-    href="/styles.css"
+    href="/app/public/styles.css"
   >
 </head>
-
 
 <body>
 
@@ -40,7 +39,6 @@
       >
         Venkat
       </a>
-
 
       <div
         class="nav-links"
@@ -73,7 +71,6 @@
 
       </div>
 
-
       <button
         class="menu-toggle"
         id="menuToggle"
@@ -98,7 +95,6 @@
 
   <main>
 
-
     <!-- ==========================================
          HERO
     =========================================== -->
@@ -122,74 +118,6 @@
     </section>
 
 
-
-    <!-- ==========================================
-         PRIMARY CHAT AREA
-    =========================================== -->
-
-    <section class="container ask-section">
-
-      <div class="ask-heading">
-
-        <div class="section-label">
-          Ask me
-        </div>
-
-        <p>
-          What would you like to know?
-        </p>
-
-      </div>
-
-
-      <form
-        id="chatForm"
-        class="primary-composer"
-      >
-
-        <label
-          for="messageInput"
-          class="sr-only"
-        >
-          Ask Venkat a question
-        </label>
-
-
-        <textarea
-          id="messageInput"
-          rows="2"
-          maxlength="4000"
-          placeholder="Ask me about my experience, skills, projects..."
-          autocomplete="off"
-        ></textarea>
-
-
-        <button
-          id="sendBtn"
-          class="chat-send"
-          type="submit"
-          aria-label="Send question"
-        >
-          <span>
-            Ask
-          </span>
-
-          <span aria-hidden="true">
-            →
-          </span>
-        </button>
-
-      </form>
-
-
-      <p class="ask-hint">
-        Try asking about a company, project, technology, or role.
-      </p>
-
-    </section>
-
-
-
     <!-- ==========================================
          SUGGESTED QUESTIONS
     =========================================== -->
@@ -199,9 +127,8 @@
       <div class="ai-intro">
 
         <div class="section-label">
-          Not sure what to ask?
+          Try a question
         </div>
-
 
         <div class="suggested-questions">
 
@@ -213,7 +140,6 @@
             What did you work on at ZEISS?
           </button>
 
-
           <button
             type="button"
             class="suggestion-btn"
@@ -221,7 +147,6 @@
           >
             Tell me about your data engineering experience.
           </button>
-
 
           <button
             type="button"
@@ -238,27 +163,27 @@
     </section>
 
 
-
     <!-- ==========================================
-         CONVERSATION
+         CHAT
     =========================================== -->
 
     <section class="container chat-shell">
+
+      <!-- Chat header -->
 
       <div class="chat-header">
 
         <div>
 
           <div class="section-label">
-            Conversation
+            Ask Venkat
           </div>
 
           <p class="chat-status">
-            Portfolio knowledge assistant
+            AI portfolio assistant
           </p>
 
         </div>
-
 
         <button
           id="newChatBtn"
@@ -275,6 +200,7 @@
       </div>
 
 
+      <!-- Conversation -->
 
       <div
         class="chat"
@@ -288,17 +214,12 @@
             Venkat AI
           </div>
 
-
           <div class="message-content">
 
             <p>
-              Hi. I can answer questions about Venkat’s
-              professional experience, skills, education,
-              technologies, and work.
-            </p>
-
-            <p>
-              Ask a question above or choose one of the suggestions.
+              Hi! Ask me anything about my professional
+              experience, skills, education, technologies,
+              or the work I've done.
             </p>
 
           </div>
@@ -307,11 +228,57 @@
 
       </div>
 
+
+      <!-- Composer is NOW ATTACHED to conversation -->
+
+      <div class="chat-composer-area">
+
+        <form
+          id="chatForm"
+          class="primary-composer"
+        >
+
+          <label
+            for="messageInput"
+            class="sr-only"
+          >
+            Ask Venkat a question
+          </label>
+
+          <textarea
+            id="messageInput"
+            rows="1"
+            maxlength="4000"
+            placeholder="Ask me anything about my work..."
+            autocomplete="off"
+          ></textarea>
+
+          <button
+            id="sendBtn"
+            class="chat-send"
+            type="submit"
+            aria-label="Send question"
+          >
+            <span>
+              Ask
+            </span>
+
+            <span aria-hidden="true">
+              →
+            </span>
+          </button>
+
+        </form>
+
+        <p class="ask-hint">
+          Ask about a company, role, technology, skill, or experience.
+        </p>
+
+      </div>
+
     </section>
 
-
   </main>
-
 
 
   <!-- ==========================================
@@ -325,7 +292,6 @@
       <div>
         Data · Operations · Technology
       </div>
-
 
       <div class="footer-status">
 
@@ -343,7 +309,6 @@
   </footer>
 
 
-
   <!-- ==========================================
        JAVASCRIPT
   =========================================== -->
@@ -353,4 +318,3 @@
 </body>
 
 </html>
-
