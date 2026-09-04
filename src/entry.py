@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from pyodide.ffi import to_js as _to_js
 from workers import asgi
 
-from .knowledge import KNOWLEDGE_CHUNKS
+from knowledge import KNOWLEDGE_CHUNKS
 
 
 EMBEDDING_MODEL = "@cf/baai/bge-base-en-v1.5"
