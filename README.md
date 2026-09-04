@@ -1,23 +1,58 @@
-## Usage
+ASK VENKAT — CLOUDFLARE SETUP
 
-You can run the Worker defined by your new project by executing `wrangler dev` in this
-directory. This will start up an HTTP server and will allow you to iterate on your
-Worker without having to restart `wrangler`.
+Cloudflare build settings
 
-### Types and autocomplete
+Build command:
+echo "No build step"
 
-This project also includes a pyproject.toml file with some requirements which
-set up autocomplete and type hints for this Python Workers project.
+Deploy command:
+uv run pywrangler deploy
 
-To get these installed you'll need `uv`, which you can install by following
-https://docs.astral.sh/uv/getting-started/installation/.
 
-Once `uv` is installed, you can run the following:
+Required Cloudflare secrets
 
-```
-uv venv
-uv sync
-```
+GROQ_API_KEY
+INGEST_SECRET
 
-Then point your editor's Python plugin at the `.venv` directory. You should then have working
-autocomplete and type information in your editor.
+
+Existing Vectorize index
+
+ask-venkat-knowledge
+
+Dimensions:
+768
+
+Metric:
+cosine
+
+
+After deployment
+
+1. Confirm /health works.
+
+2. Add GROQ_API_KEY as a Cloudflare secret.
+
+3. Add INGEST_SECRET as a Cloudflare secret.
+
+4. Call:
+
+POST /api/admin/ingest
+
+with header:
+
+x-ingest-secret: YOUR_INGEST_SECRET
+
+This loads the resume knowledge into Vectorize.
+
+5. Test the chatbot with:
+
+What did you do at Amazon?
+
+Tell me about your data engineering experience.
+
+What are your strongest technical skills?
+
+
+Production URL
+
+https://ask-venkat-cloudflare.venkateshwarreddy32.workers.dev

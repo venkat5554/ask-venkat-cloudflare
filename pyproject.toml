@@ -3,8 +3,10 @@ name = "ask-venkat-cloudflare"
 version = "0.1.0"
 description = "Ask Venkat portfolio AI assistant on Cloudflare Workers"
 requires-python = ">=3.13"
+
 dependencies = [
     "fastapi",
+    "httpx",
 ]
 
 [dependency-groups]
