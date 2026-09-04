@@ -54,7 +54,6 @@ a {
 }
 
 button,
-input,
 textarea {
   font: inherit;
 }
@@ -67,15 +66,9 @@ textarea {
   display: block;
 }
 
-img,
-svg {
-  display: block;
-  max-width: 100%;
-}
-
 
 /* ==========================================
-   GENERAL CONTAINER
+   CONTAINER
 =========================================== */
 
 .container {
@@ -100,11 +93,11 @@ svg {
 }
 
 .nav-inner {
-  position: relative;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 30px;
 }
 
 
@@ -118,6 +111,7 @@ svg {
 
   font-size: 15px;
   font-weight: 700;
+
   letter-spacing: 0.14em;
 
   transition: opacity 0.2s ease;
@@ -229,13 +223,11 @@ svg {
 
 
 /* ==========================================
-   COMMON LABEL
+   LABELS
 =========================================== */
 
 .eyebrow,
 .section-label {
-  color: var(--accent);
-
   font-size: 12px;
   font-weight: 600;
 
@@ -243,8 +235,15 @@ svg {
   letter-spacing: 0.16em;
 }
 
+.eyebrow {
+  margin-bottom: 20px;
+
+  color: var(--accent);
+}
+
 .section-label {
   color: var(--muted);
+
   letter-spacing: 0.14em;
 }
 
@@ -254,11 +253,7 @@ svg {
 =========================================== */
 
 .ai-hero {
-  padding: 60px 0 56px;
-}
-
-.ai-hero .eyebrow {
-  margin-bottom: 20px;
+  padding: 60px 0 52px;
 }
 
 .ai-hero h1 {
@@ -279,7 +274,7 @@ svg {
 }
 
 .ai-hero-description {
-  max-width: 650px;
+  max-width: 640px;
 
   margin-top: 28px;
 
@@ -291,18 +286,156 @@ svg {
 
 
 /* ==========================================
-   AI INTERFACE
+   PRIMARY ASK SECTION
 =========================================== */
 
-.ai-interface {
-  padding: 0 0 72px;
+.ask-section {
+  padding: 38px 0 42px;
 
   border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.ask-heading {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 760px);
+
+  gap: 70px;
+
+  align-items: start;
+
+  margin-bottom: 22px;
+}
+
+.ask-heading p {
+  max-width: 620px;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  line-height: 1.32;
+  letter-spacing: -0.025em;
 }
 
 
 /* ==========================================
-   SUGGESTED QUESTIONS
+   PRIMARY COMPOSER
+=========================================== */
+
+.primary-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+
+  gap: 24px;
+
+  min-height: 82px;
+
+  padding: 16px 22px;
+
+  border: 1px solid var(--line);
+
+  background: rgba(255, 255, 255, 0.34);
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.primary-composer:hover {
+  border-color: #b8b7b0;
+}
+
+.primary-composer:focus-within {
+  border-color: var(--accent);
+
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.primary-composer textarea {
+  width: 100%;
+
+  min-height: 48px;
+  max-height: 170px;
+
+  padding: 10px 0;
+
+  border: 0;
+  outline: none;
+
+  resize: none;
+  overflow-y: auto;
+
+  background: transparent;
+  color: var(--text);
+
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.primary-composer textarea::placeholder {
+  color: #8d8d86;
+}
+
+.primary-composer textarea:focus-visible {
+  outline: none;
+}
+
+
+/* ==========================================
+   SEND BUTTON
+=========================================== */
+
+.chat-send {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 12px 0;
+
+  border: 0;
+  border-bottom: 1px solid var(--accent);
+
+  background: transparent;
+  color: var(--accent);
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    gap 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.chat-send:hover {
+  gap: 24px;
+}
+
+.chat-send:disabled {
+  opacity: 0.4;
+
+  cursor: not-allowed;
+}
+
+
+/* ==========================================
+   ASK HINT
+=========================================== */
+
+.ask-hint {
+  margin-top: 10px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+
+/* ==========================================
+   SUGGESTIONS
 =========================================== */
 
 .ai-intro {
@@ -311,7 +444,7 @@ svg {
 
   gap: 70px;
 
-  padding: 40px 0;
+  padding: 38px 0;
 }
 
 .suggested-questions {
@@ -353,6 +486,17 @@ svg {
 
 
 /* ==========================================
+   CHAT SHELL
+=========================================== */
+
+.chat-shell {
+  padding-bottom: 70px;
+
+  border-top: 1px solid var(--line);
+}
+
+
+/* ==========================================
    CHAT HEADER
 =========================================== */
 
@@ -361,11 +505,10 @@ svg {
   align-items: flex-end;
   justify-content: space-between;
 
-  gap: 40px;
+  gap: 30px;
 
-  padding: 25px 0;
+  padding: 24px 0;
 
-  border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
 
@@ -381,7 +524,7 @@ svg {
   display: inline-flex;
   align-items: center;
 
-  gap: 12px;
+  gap: 10px;
 
   padding: 8px 0;
 
@@ -402,11 +545,11 @@ svg {
 }
 
 .new-chat-btn:hover {
-  gap: 17px;
-
-  border-color: var(--accent);
+  gap: 15px;
 
   color: var(--accent);
+
+  border-color: var(--accent);
 }
 
 
@@ -415,12 +558,12 @@ svg {
 =========================================== */
 
 .chat {
-  min-height: 300px;
+  min-height: 0;
 }
 
 
 /* ==========================================
-   MESSAGE
+   MESSAGES
 =========================================== */
 
 .message {
@@ -432,10 +575,6 @@ svg {
   padding: 28px 0;
 
   border-bottom: 1px solid var(--line);
-}
-
-.message-meta {
-  min-width: 0;
 }
 
 .message-label {
@@ -450,6 +589,10 @@ svg {
   letter-spacing: 0.14em;
 }
 
+.assistant-message .message-label {
+  color: var(--accent);
+}
+
 .message-content {
   min-width: 0;
 }
@@ -458,7 +601,6 @@ svg {
   max-width: 700px;
 
   font-size: 17px;
-
   line-height: 1.65;
 }
 
@@ -466,240 +608,8 @@ svg {
   margin-top: 12px;
 }
 
-
-/* ==========================================
-   ASSISTANT MESSAGE
-=========================================== */
-
-.assistant-message .message-label {
-  color: var(--accent);
-}
-
-
-/* ==========================================
-   USER MESSAGE
-=========================================== */
-
-.user-message .message-label {
-  color: var(--muted);
-}
-
 .user-message .message-content {
   color: var(--text);
-}
-
-
-/* ==========================================
-   LOADING / TYPING STATE
-=========================================== */
-
-.typing-message .message-content {
-  color: var(--muted);
-}
-
-.typing-dots {
-  display: inline-flex;
-  align-items: center;
-
-  gap: 5px;
-
-  min-height: 24px;
-}
-
-.typing-dots span {
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  opacity: 0.35;
-
-  animation: typingDot 1.2s infinite ease-in-out;
-}
-
-.typing-dots span:nth-child(2) {
-  animation-delay: 0.15s;
-}
-
-.typing-dots span:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-@keyframes typingDot {
-
-  0%,
-  60%,
-  100% {
-    opacity: 0.25;
-    transform: translateY(0);
-  }
-
-  30% {
-    opacity: 1;
-    transform: translateY(-3px);
-  }
-
-}
-
-
-/* ==========================================
-   COMPOSER SECTION
-=========================================== */
-
-.composer-section {
-  padding: 0;
-}
-
-
-/* ==========================================
-   CHAT COMPOSER
-=========================================== */
-
-.chat-composer {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-
-  gap: 24px;
-
-  padding: 22px 0;
-
-  border-bottom: 1px solid var(--line);
-}
-
-.chat-composer textarea {
-  width: 100%;
-
-  min-height: 56px;
-  max-height: 180px;
-
-  padding: 14px 0;
-
-  border: 0;
-  outline: 0;
-
-  resize: none;
-  overflow-y: auto;
-
-  background: transparent;
-  color: var(--text);
-
-  font-size: 18px;
-
-  line-height: 1.5;
-}
-
-.chat-composer textarea::placeholder {
-  color: #8d8d86;
-}
-
-
-/* ==========================================
-   SEND BUTTON
-=========================================== */
-
-.chat-send {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 18px;
-
-  min-width: 74px;
-
-  padding: 12px 0;
-
-  border: 0;
-  border-bottom: 1px solid var(--accent);
-
-  background: transparent;
-  color: var(--accent);
-
-  font-size: 14px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    gap 0.2s ease,
-    opacity 0.2s ease,
-    color 0.2s ease;
-}
-
-.chat-send:hover {
-  gap: 24px;
-}
-
-.chat-send:disabled {
-  opacity: 0.35;
-
-  cursor: not-allowed;
-}
-
-.send-arrow {
-  transition: transform 0.2s ease;
-}
-
-.chat-send:hover .send-arrow {
-  transform: translateX(2px);
-}
-
-
-/* ==========================================
-   COMPOSER FOOTER
-=========================================== */
-
-.composer-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 30px;
-
-  padding-top: 12px;
-}
-
-.disclaimer,
-.character-count {
-  color: var(--muted);
-
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.disclaimer {
-  max-width: 540px;
-}
-
-.character-count {
-  flex-shrink: 0;
-}
-
-
-/* ==========================================
-   AI PHILOSOPHY
-=========================================== */
-
-.ai-philosophy {
-  padding: 70px 0 76px;
-
-  border-top: 1px solid var(--line);
-}
-
-.ai-philosophy p {
-  max-width: 950px;
-
-  font-size: clamp(38px, 4.8vw, 62px);
-
-  line-height: 1.04;
-  letter-spacing: -0.05em;
-}
-
-.ai-philosophy strong {
-  color: var(--accent);
-  font-weight: 500;
 }
 
 
@@ -725,11 +635,7 @@ footer {
   gap: 30px;
 }
 
-.footer-positioning {
-  letter-spacing: 0.01em;
-}
-
-.footer-ai-status {
+.footer-status {
   display: flex;
   align-items: center;
 
@@ -771,8 +677,7 @@ footer {
 }
 
 a:focus-visible,
-button:focus-visible,
-textarea:focus-visible {
+button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 5px;
 }
@@ -788,48 +693,12 @@ textarea:focus-visible {
     width: min(760px, calc(100% - 40px));
   }
 
-
-  /* HERO */
-
-  .ai-hero {
-    padding: 54px 0 50px;
-  }
-
-  .ai-hero h1 {
-    max-width: 760px;
-
-    font-size: clamp(48px, 9vw, 68px);
-  }
-
-  .ai-hero-description {
-    max-width: 600px;
-
-    font-size: 17px;
-  }
-
-
-  /* INTRO */
-
-  .ai-intro {
-    grid-template-columns: 180px minmax(0, 1fr);
-
-    gap: 45px;
-  }
-
-
-  /* MESSAGE */
-
+  .ask-heading,
+  .ai-intro,
   .message {
     grid-template-columns: 180px minmax(0, 1fr);
 
     gap: 45px;
-  }
-
-
-  /* PHILOSOPHY */
-
-  .ai-philosophy {
-    padding: 60px 0 64px;
   }
 
 }
@@ -846,9 +715,7 @@ textarea:focus-visible {
   }
 
 
-  /* ==========================================
-     NAVIGATION
-  =========================================== */
+  /* NAVIGATION */
 
   .site-nav {
     padding: 18px 0;
@@ -892,58 +759,78 @@ textarea:focus-visible {
     pointer-events: auto;
   }
 
-  .nav-links a.active::after {
-    bottom: -6px;
-  }
 
-
-  /* ==========================================
-     HERO
-  =========================================== */
+  /* HERO */
 
   .ai-hero {
     padding: 44px 0;
-  }
-
-  .ai-hero .eyebrow {
-    margin-bottom: 18px;
   }
 
   .ai-hero h1 {
     max-width: 100%;
 
     font-size: clamp(42px, 13vw, 58px);
-
-    line-height: 0.98;
   }
 
   .ai-hero-description {
-    max-width: 100%;
-
-    margin-top: 22px;
-
     font-size: 16px;
   }
 
 
-  /* ==========================================
-     INTRO
-  =========================================== */
+  /* PRIMARY ASK */
+
+  .ask-section {
+    padding: 30px 0 34px;
+  }
+
+  .ask-heading {
+    display: block;
+
+    margin-bottom: 18px;
+  }
+
+  .ask-heading .section-label {
+    margin-bottom: 10px;
+  }
+
+  .ask-heading p {
+    font-size: 21px;
+  }
+
+  .primary-composer {
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 74px;
+
+    padding: 14px 16px;
+  }
+
+  .primary-composer textarea {
+    min-height: 44px;
+
+    padding: 8px 0;
+
+    font-size: 16px;
+  }
+
+  .chat-send {
+    gap: 10px;
+  }
+
+
+  /* SUGGESTIONS */
 
   .ai-intro {
     display: block;
 
-    padding: 34px 0;
+    padding: 32px 0;
   }
 
   .ai-intro .section-label {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
-
-
-  /* ==========================================
-     SUGGESTED QUESTIONS
-  =========================================== */
 
   .suggested-questions {
     display: grid;
@@ -958,8 +845,6 @@ textarea:focus-visible {
 
     border-width: 0 0 1px;
 
-    background: transparent;
-
     text-align: left;
   }
 
@@ -971,8 +856,6 @@ textarea:focus-visible {
   .suggestion-btn:focus-visible {
     padding-left: 8px;
 
-    border-color: var(--line);
-
     background: transparent;
     color: var(--accent);
 
@@ -980,14 +863,10 @@ textarea:focus-visible {
   }
 
 
-  /* ==========================================
-     CHAT HEADER
-  =========================================== */
+  /* CHAT */
 
   .chat-header {
     align-items: center;
-
-    gap: 20px;
 
     padding: 20px 0;
   }
@@ -995,20 +874,6 @@ textarea:focus-visible {
   .chat-status {
     display: none;
   }
-
-
-  /* ==========================================
-     CHAT
-  =========================================== */
-
-  .chat {
-    min-height: 240px;
-  }
-
-
-  /* ==========================================
-     MESSAGE
-  =========================================== */
 
   .message {
     display: block;
@@ -1027,77 +892,13 @@ textarea:focus-visible {
   }
 
 
-  /* ==========================================
-     COMPOSER
-  =========================================== */
-
-  .chat-composer {
-    gap: 16px;
-
-    padding: 18px 0;
-  }
-
-  .chat-composer textarea {
-    min-height: 50px;
-
-    padding: 12px 0;
-
-    font-size: 16px;
-  }
-
-  .chat-send {
-    min-width: 62px;
-
-    gap: 10px;
-  }
-
-
-  /* ==========================================
-     COMPOSER FOOTER
-  =========================================== */
-
-  .composer-footer {
-    align-items: flex-start;
-    flex-direction: column;
-
-    gap: 5px;
-
-    padding-top: 10px;
-  }
-
-  .character-count {
-    display: none;
-  }
-
-
-  /* ==========================================
-     PHILOSOPHY
-  =========================================== */
-
-  .ai-philosophy {
-    padding: 52px 0 56px;
-  }
-
-  .ai-philosophy p {
-    max-width: 100%;
-
-    font-size: clamp(36px, 10vw, 50px);
-  }
-
-
-  /* ==========================================
-     FOOTER
-  =========================================== */
-
-  footer {
-    padding: 22px 0;
-  }
+  /* FOOTER */
 
   .footer-inner {
     align-items: flex-start;
     flex-direction: column;
 
-    gap: 12px;
+    gap: 10px;
   }
 
 }
@@ -1121,12 +922,16 @@ textarea:focus-visible {
     font-size: clamp(39px, 12.5vw, 50px);
   }
 
-  .ai-philosophy p {
-    font-size: 36px;
+  .primary-composer {
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    gap: 10px;
+
+    padding: 12px 14px;
   }
 
-  .new-chat-btn span {
-    display: none;
+  .chat-send {
+    font-size: 13px;
   }
 
 }
@@ -1150,4 +955,3 @@ textarea:focus-visible {
   }
 
 }
-
